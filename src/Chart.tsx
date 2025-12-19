@@ -195,6 +195,12 @@ export function LiveTradeChart({
                 received on either channel A or B.
               </div>
               <div className="text-muted-foreground flex items-center gap-2 leading-none">
+                x axis - trade id
+              </div>
+              <div className="text-muted-foreground flex items-center gap-2 leading-none">
+                y axis - number of wins
+              </div>
+              <div className="text-muted-foreground flex items-center gap-2 leading-none">
                 Hover mouse over graph to see more info
               </div>
             </div>
