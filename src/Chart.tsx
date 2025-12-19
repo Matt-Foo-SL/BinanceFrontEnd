@@ -61,11 +61,14 @@ export function LiveTradeChart({
     ws.onmessage = (event) => {
       const data: EventData = JSON.parse(event.data);
       if (data.type === "stream_status") {
-        if (data.status === "stopped") {
+        if (data.status === "started") {
+          console.log("Stream started");
+          setStreamRunning(true);
+        } else if (data.status === "stopped" || data.status === "crashed") {
           console.log("Stream stopped");
           setStreamRunning(false);
+          return;
         }
-        return;
       }
       const event_id = data.event_id;
       const channel = data.channel;
@@ -183,6 +186,20 @@ export function LiveTradeChart({
             </LineChart>
           </ChartContainer>
         </CardContent>
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-sm">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 leading-none font-medium">
+                The chart shows which channel has a higher number of wins at any
+                point. Every point on the graph shows the wins for every message
+                received on either channel A or B.
+              </div>
+              <div className="text-muted-foreground flex items-center gap-2 leading-none">
+                Hover mouse over graph to see more info
+              </div>
+            </div>
+          </div>
+        </CardFooter>
       </Card>
     </>
   );
